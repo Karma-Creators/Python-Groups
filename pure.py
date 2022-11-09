@@ -1,4 +1,3 @@
-#An example of a class
 
 ###################################################################
 #      Greatest Common Divisor                                    #
@@ -18,7 +17,7 @@ def gcd(ainput,binput):
 #      Euclidean Algorithm                                        #
 ###################################################################
 
-def euclidAlg(ainput,binput):
+def euclid_algorithm(ainput,binput):
 
     count = 0
     a = max([ainput,binput])
@@ -75,16 +74,18 @@ def euclidAlg(ainput,binput):
 #      Prime Factorisation                                        #
 ###################################################################
 
-def primeFact(minput):
+def prime_fact(minput):
     read = True 
-    mint = minput
     m = minput
     prime_file = open("primes/primes_1mill.txt",'r')
+    prime_file = list(map(int,prime_file.readline().split()))
     primes = []
     powers = []
+    nxt = 0
     while m != 1:
         if read:
-            pc = int(prime_file.readline())
+            pc = int(prime_file[nxt])
+            nxt+=1
             count = 0
         rem = m % pc
         if rem == 0:
@@ -116,19 +117,19 @@ def phi(minput):
 #      set cross product                                          #
 ###################################################################
 
-def setCrossProd(sets):
-    numSets = len(sets)
-    numElements = 1
+def set_cross_prod(sets):
+    num_sets = len(sets)
+    num_elements = 1
 
     for st in sets:
-        numElements *= len(st)
+        num_elements *= len(st)
 
     elements = []
-    for i in range(0,numElements):
-        divisor = numElements
+    for i in range(0,num_elements):
+        divisor = num_elements
         element = []
         index = i
-        for j in range(0,numSets-1):
+        for j in range(0,num_sets-1):
             divisor = divisor/len(sets[j])
             lindex = int(index//divisor)              
             index = int(index%divisor)              

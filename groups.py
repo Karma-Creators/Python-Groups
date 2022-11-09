@@ -1,24 +1,15 @@
-#An example of a class
-from pure import *
+
+import pure
 
 class Group(object):
 
-    def __init__(self, gtype   = None,
-                       mod     = None,
+    def __init__(self, gtype ,
+                       mod   ,
                        sub     = [] ):
 
 ##########################################
 #        Group Generation Methods        #
 ##########################################
-
-# mult mod generator
-
-        def multmodgen(m):
-            mg = []
-            for i in range(1,m):
-                if gcd(i,m) == 1:
-                    mg.append(i)
-            return mg           
 
         if type(gtype) == str:
             if gtype == "add": 
@@ -43,7 +34,7 @@ class Group(object):
                 self.i = 1
                 self.mod = mod
                 if sub == []:
-                    self.glist = multmodgen(mod)
+                    self.glist = self.multmodgen(mod)
                 else:
                     self.glist = sub
 
@@ -55,7 +46,7 @@ class Group(object):
             ident = []
             sets = []
             index = 0
-# setting up sets for the cross product
+            # setting up sets for the cross product
             for gt in gtype:
                 modi = mod[index]
                 index = index + 1
@@ -63,14 +54,14 @@ class Group(object):
                     s = range(0,modi)
                     ident.append(0)
                 elif gt == "mult":
-                    s = multmodgen(modi)
+                    s = self.multmodgen(modi)
                     ident.append(1)
                 sets.append(s)
             self.i = ident
             self.sets = sets
             self.mod = mod
             if sub == []:
-                gx = setCrossProd(self.sets)
+                gx = pure.set_cross_prod(self.sets)
                 gs = []
                 for x in gx:
                     if x not in gs:
@@ -79,23 +70,29 @@ class Group(object):
             else:
                 self.glist = sub
 
-# Group order and type
+        # Group order and type
 
         self.o = len(self.glist)
         self.gtype = gtype
 
-# Group dictionary
-
+        # Group dictionary
         count = 0
         self.gdict = {}
         for g in self.glist:
             self.gdict[count] = g
             count = count + 1
+    
+    def multmodgen(m):
+        mg = []
+        for i in range(1,m):
+            if gcd(i,m) == 1:
+                mg.append(i)
+        return mg    
             
 ##########################################
 #        Group Operator Methods          #
 ##########################################
-
+    
     def op2(self,ga,gb,owType = None):
         if owType == None:
             useType = self.gtype
@@ -265,7 +262,7 @@ class Group(object):
             loop = g
             for g in loop:
                 sets.append(self.gcycle(g))
-            gx = setCrossProd(sets)
+            gx = pure.set_cross_prod(sets)
             gs = self.unique_list(gx)
         elif type(g) == list and type(self.gtype) == list:
             if type(g[0]) == int:
@@ -275,7 +272,7 @@ class Group(object):
                 loop = g
                 for g in loop:
                     sets.append(self.gcycle(g))
-                gx = setCrossProd(sets)
+                gx = pure.set_cross_prod(sets)
                 gs = self.unique_list(gx)
         return Group(self.gtype,self.mod,gs)
 

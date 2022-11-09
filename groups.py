@@ -82,7 +82,7 @@ class Group(object):
             self.gdict[count] = g
             count = count + 1
     
-    def multmodgen(m):
+    def multmodgen(self, m):
         mg = []
         for i in range(1,m):
             if gcd(i,m) == 1:

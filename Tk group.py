@@ -4,16 +4,17 @@ Created on Thu Mar 28 22:39:18 2019
 
 @author: 18pt16
 """
+
 import pure as pr
 import tkinter as tk
 
 mainWin = tk.Tk()
 
-def printFact():
+def print_fact():
    p = E1.get()
-   E1.delete(0,END)
+   E1.delete(0,"end")
    if len(p)>0:
-       x = pr.primeFact(int(p))
+       x = pr.prime_fact(int(p))
        print(x)
    var2 = tk.StringVar()
    F3 = tk.Frame(mainWin)
@@ -38,7 +39,7 @@ E1.pack(side = 'right')
 
 F = tk.Frame(mainWin)
 F.pack(padx=10,pady=30,side = 'top')
-B = tk.Button(F ,text = "Create Group",command = printFact)
+B = tk.Button(F ,text = "Create Group",command = print_fact)
 B.pack()
 
 mainWin.mainloop()

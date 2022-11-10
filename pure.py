@@ -107,7 +107,7 @@ def prime_fact(minput):
 ###################################################################
 
 def phi(minput):
-    [primes,powers] = primeFact(minput)
+    [primes,powers] = prime_fact(minput)
     phi = 1
     for i in range(0,len(primes)):
         phi = phi*(primes[i] - 1)*primes[i]**(powers[i] - 1)

@@ -85,7 +85,7 @@ class Group(object):
     def multmodgen(self, m):
         mg = []
         for i in range(1,m):
-            if gcd(i,m) == 1:
+            if pure.gcd(i,m) == 1:
                 mg.append(i)
         return mg    
             
@@ -93,16 +93,16 @@ class Group(object):
 #        Group Operator Methods          #
 ##########################################
     
-    def op2(self,ga,gb,owType = None):
-        if owType == None:
-            useType = self.gtype
+    def op2(self,ga,gb,ow_type = None):
+        if ow_type == None:
+            use_type = self.gtype
         else:
-            useType = owType
+            use_type = ow_type
 # Addition modulus
-        if useType == "add":
+        if use_type == "add":
             ans = (ga + gb) % self.mod
 # Multiplication modulus
-        elif useType == "mult":
+        elif use_type == "mult":
             ans = (ga*gb) % self.mod
 # Addition vector modulus
         else:
@@ -155,13 +155,13 @@ class Group(object):
             return gos
         elif type(g) == int:
             return self.gorder(g)
-        elif type(g) == list and type(self.gtype) == str:
+        elif [type(g),type(self.gtype)] == [list, str]:
             gos = []
             loop = g
             for g in loop:
                 gos.append(self.gorder(g))
             return gos
-        elif type(g) == list and type(self.gtype) == list:
+        elif [type(g),type(self.gtype)] == [list, list]:
             if type(g[0]) == list:
                 gos = []
                 loop = g
@@ -183,14 +183,14 @@ class Group(object):
 #        Group Element Power             #
 ##########################################
 
-    def pow(self,g,power,owType = None):
+    def pow(self,g,power,ow_type = None):
 # Calculating the power
         g_init = g
         for i in range(0,power-1):
-            if owType == None:
+            if ow_type == None:
                 element = self.op2(g,g_init)
             else:
-                element = self.op2(g,g_init,owType)
+                element = self.op2(g,g_init,ow_type)
         return element
 
 ##########################################
@@ -227,7 +227,7 @@ class Group(object):
             return self.glist 
         elif type(ind) is list:
             gs = set()
-            for ind in index:
+            for ind in self.gdict.keys():
                 gs.append(self.gdict[ind])
             return gs
         elif type(ind) is int:

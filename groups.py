@@ -5,12 +5,14 @@ class Group(object):
 
     def __init__(self, gtype ,
                        mod   ,
-                       sub     = [] ):
+                       sub     = None ):
 
 ##########################################
 #        Group Generation Methods        #
 ##########################################
-
+        if sub == None:
+            sub = []
+            
         if type(gtype) == str:
             if gtype == "add": 
 
@@ -186,7 +188,7 @@ class Group(object):
     def pow(self,g,power,ow_type = None):
 # Calculating the power
         g_init = g
-        for i in range(0,power-1):
+        for _ in range(0,power-1):
             if ow_type == None:
                 element = self.op2(g,g_init)
             else:
